@@ -164,8 +164,8 @@ func resourceManifestCreate(d *schema.ResourceData, m interface{}) error {
 	if err := json.Unmarshal(stdout.Bytes(), &data); err != nil {
 		return fmt.Errorf("decoding response: %v", err)
 	}
-	if len(data.Items) != 1 {
-		return fmt.Errorf("expected to create 1 resource, got %d", len(data.Items))
+	if len(data.Items) < 1 {
+		return fmt.Errorf("expected to create at least 1 resource, got %d", len(data.Items))
 	}
 	selflink := data.Items[0].Metadata.Selflink
 	if selflink == "" {
